@@ -1,0 +1,15 @@
+melodySelection.title = Select Melody
+melodySelection.stop = Stop
+melodySelection.delete = Delete
+melodySelection.tracks = Tracks
+melodySelection.upload = Upload
+melodySelection.cancel = Cancel
+melodySelection.search = Search
+melodySelection.separator.own = Your Melodies
+melodySelection.separator.server = Server Melodies
+
+melodyUpload.title = Upload Melody
+melodyUpload.details = Provide a direct link to a MIDI file and give it a name.
+melodyUpload.name = Melody Name
+melodyUpload.url = URL to MIDI File
+melodyUpload.error = "Error: {message}"

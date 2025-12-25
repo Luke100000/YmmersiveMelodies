@@ -1,0 +1,12 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "Animations": {
+    "Idle": {
+      "Speed": 1,
+      "BlendingDuration": 0.1,
+      "ThirdPerson": "Characters/Animations/YmmersiveMelodies/Lute.blockyanim",
+      "Looping": true,
+      "FirstPerson": "Characters/Animations/YmmersiveMelodies/Lute_FPS.blockyanim"
+    }
+  }
+}

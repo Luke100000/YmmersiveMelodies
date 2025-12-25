@@ -1,0 +1,30 @@
+{
+  "Categories": [
+    "Items.Instruments",
+    "Items.Tools"
+  ],
+  "Quality": "Template",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Bagpipe.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Bagpipe.png",
+  "ItemLevel": 10,
+  "MaxStack": 1,
+  "UsePlayerAnimations": true,
+  "Tags": {
+    "Type": [
+      "Workbench_Tools"
+    ]
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Bagpipe.png",
+  "IconProperties": {
+    "Scale": 0.58823,
+    "Rotation": [
+      22.5,
+      45.0,
+      22.5
+    ],
+    "Translation": [
+      0.0,
+      -13.5
+    ]
+  }
+}

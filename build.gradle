@@ -1,0 +1,217 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.apache.httpcomponents:httpclient:4.5.14'
+        classpath 'org.apache.httpcomponents:httpmime:4.5.14'
+    }
+}
+
+plugins {
+    id 'java'
+    id("co.uzzu.dotenv.gradle") version "4.0.0"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+}
+
+repositories {
+    mavenCentral()
+}
+
+def hytaleJar = System.getProperty("user.home") +
+        "/AppData/Roaming/Hytale/install/release/package/game/latest/Server/HytaleServer.jar"
+
+def hytaleSourcesJar = System.getProperty("user.home") +
+        "/AppData/Roaming/Hytale/install/release/package/game/latest/Server/HytaleServer-Sources.jar"
+
+dependencies {
+    implementation(files(hytaleJar))
+}
+
+def getAppVersion = {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        def process = ['git', 'tag', '--points-at', 'HEAD'].execute()
+        process.consumeProcessOutput(stdout, System.err)
+        process.waitFor()
+        def tag = stdout.toString().trim()
+        if (tag.isEmpty()) {
+            println "No git tag found for HEAD, defaulting to version 0.0.1"
+            return "0.0.1"
+        }
+        return tag
+    } catch (Exception e) {
+        println "Warning: ${e.message}, is git installed?"
+        return "0.0.1"
+    }
+}
+
+allprojects {
+    version = getAppVersion()
+}
+
+processResources {
+    filesMatching('manifest.json') {
+        filter { line ->
+            line.replace('"Version": "0.0.1",', '"Version": "' + project.version + '",')
+        }
+    }
+}
+
+tasks.jar {
+    archiveBaseName.set(project.property("archiveBaseName") as String)
+    archiveVersion.set(project.property("version") as String)
+}
+
+tasks.register('run', JavaExec) {
+    mainClass = 'com.hypixel.hytale.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = file('run')   // create this dir if needed
+    standardInput = System.in
+
+    doFirst {
+        file('run').mkdirs()  // ensure workingDir exists
+    }
+
+    // Construct mods path dynamically like in the original Java code
+    def projectRoot = projectDir.toPath()
+    def modsPath = projectRoot.resolve('src/main').toAbsolutePath()
+
+    args = [
+            '--allow-op',
+            '--disable-sentry',
+            '--auth-mode=insecure',
+            "--assets=C:\\Users\\${user}\\AppData\\Roaming\\Hytale\\install\\release\\package\\game\\latest\\Assets.zip",
+            "--mods=${modsPath}"
+    ]
+}
+
+/* -----------------------------------------
+        Publishing TASKS
+   ----------------------------------------- */
+
+
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.entity.ContentType
+import org.apache.http.entity.mime.MultipartEntityBuilder
+import org.apache.http.impl.client.HttpClients
+
+tasks.register('publish') {
+    doLast {
+        if (!env.isPresent("API_TOKEN")) {
+            throw new GradleException("Environment variable FOO is not set")
+        }
+
+        def metadata = [
+                changelog    : new File("${project.projectDir}/changelog.md").text,
+                changelogType: "markdown",
+                "displayName": "${project.displayName} - ${project.version}",
+                releaseType  : "alpha"
+        ]
+
+        def client = HttpClients.createDefault()
+        def post = new HttpPost("https://hytale.curseforge.com/api/projects/${projectId}/upload-file")
+
+        def entity = MultipartEntityBuilder.create()
+                .addTextBody(
+                        "metadata",
+                        JsonOutput.toJson(metadata),
+                        ContentType.APPLICATION_JSON
+                )
+                .addBinaryBody(
+                        "file",
+                        layout.buildDirectory
+                                .file("libs/${archiveBaseName}-${project.version}.jar")
+                                .get()
+                                .asFile,
+                        ContentType.APPLICATION_OCTET_STREAM,
+                        "${project.name}.jar"
+                )
+                .build()
+
+        post.setEntity(entity)
+        post.setHeader("X-Api-Token", env.fetch("API_TOKEN"))
+
+        def response = client.execute(post)
+        try {
+            def text = response.entity.content.text
+            def json = new JsonSlurper().parseText(text)
+            if (!(json instanceof Map) || !json.containsKey("id")) {
+                throw new GradleException("Response is not a valid JSON object containing 'id': $text")
+            }
+            println "Upload successful, ID: ${json.id}"
+        } finally {
+            response.close()
+        }
+    }
+}
+
+
+/* -----------------------------------------
+        VINEFLOWER DECOMPILATION TASKS
+   ----------------------------------------- */
+
+def vineflowerVersion = "1.11.2"
+def vineflowerJarName = "vineflower-${vineflowerVersion}.jar"
+def vineflowerDownloadUrl =
+        "https://github.com/Vineflower/vineflower/releases/download/${vineflowerVersion}/${vineflowerJarName}"
+
+def vineflowerJar = layout.buildDirectory.file("vineflower/${vineflowerJarName}")
+
+tasks.register("downloadVineflower") {
+    group = "decompilation"
+    description = "Downloads Vineflower ${vineflowerVersion}"
+
+    outputs.file(vineflowerJar)
+
+    doLast {
+        def jarFile = vineflowerJar.get().asFile
+
+        if (!jarFile.exists()) {
+            println "Downloading Vineflower ${vineflowerVersion}…"
+            jarFile.parentFile.mkdirs()
+
+            new URI(vineflowerDownloadUrl).toURL().withInputStream { input ->
+                jarFile.withOutputStream { out -> out << input }
+            }
+
+            println "Saved to: $jarFile"
+        } else {
+            println "Vineflower already downloaded."
+        }
+    }
+}
+
+tasks.register("decompileWithVineflower", Exec) {
+    group = "decompilation"
+    description = "Runs Vineflower to decompile Hytale binary"
+
+    dependsOn("downloadVineflower")
+
+    doFirst {
+        commandLine(
+                "java",
+                "-jar", vineflowerJar.get().asFile.absolutePath,
+                "--decompile-inner",
+                "--remove-bridge",
+                "--decompile-generics",
+                "--ascii-strings",
+                "--remove-synthetic",
+                "--include-classpath",
+                "--variable-renaming=jad",
+                "--ignore-invalid-bytecode",
+                "--bytecode-source-mapping",
+                "--dump-code-lines",
+                "--indent-string=    ",
+                "--log-level=TRACE",
+                "--only=com/hypixel",
+                hytaleJar,
+                hytaleSourcesJar
+        )
+    }
+}

@@ -1,0 +1,67 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Handpan.name",
+    "Description": "items.Ymmersive_Melodies_Handpan.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Handpan.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      45.0,
+      30.0,
+      14.0
+    ],
+    "Translation": [
+      1.0,
+      -5.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Handpan.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Handpan.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Handpan",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Handpan"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Handpan"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Bronze",
+        "Quantity": 3
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}

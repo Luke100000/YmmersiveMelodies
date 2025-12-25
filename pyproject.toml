@@ -1,0 +1,10 @@
+[project]
+name = "ymmersive-melodies"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "audioop-lts>=0.2.2",
+    "numpy>=2.0.2",
+    "pydub>=0.25.1",
+    "ruff>=0.14.6"
+]

@@ -1,0 +1,71 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Piano.name",
+    "Description": "items.Ymmersive_Melodies_Piano.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Piano.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      320.0,
+      180.0,
+      30.0
+    ],
+    "Translation": [
+      -5.0,
+      -5.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Piano.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Piano.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Piano",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Piano"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Piano"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}

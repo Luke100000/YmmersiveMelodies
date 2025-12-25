@@ -1,0 +1,15 @@
+{
+  "Layers": [
+    {
+      "Files": [
+        "Sounds/Lute/c6_2000ms.ogg"
+      ],
+      "Volume": 0
+    }
+  ],
+  "Volume": 0,
+  "Pitch": 0,
+  "MaxDistance": 40,
+  "StartAttenuationDistance": 5,
+  "AudioCategory": "Ymmersive_Melodies_Instrument"
+}

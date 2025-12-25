@@ -1,0 +1,75 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Bagpipe.name",
+    "Description": "items.Ymmersive_Melodies_Bagpipe.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Bagpipe.png",
+  "IconProperties": {
+    "Scale": 0.4,
+    "Rotation": [
+      333.0,
+      208.0,
+      15.0
+    ],
+    "Translation": [
+      -5.0,
+      -21.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Bagpipe.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Bagpipe.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Bagpipe",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Bagpipe"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Bagpipe"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}

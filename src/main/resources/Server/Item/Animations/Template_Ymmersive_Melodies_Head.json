@@ -1,0 +1,31 @@
+{
+  "WiggleWeights": {
+    "Pitch": 2.5,
+    "PitchDeceleration": 0.15,
+    "Roll": 0.1,
+    "RollDeceleration": 0.1,
+    "X": 4,
+    "XDeceleration": 0.1,
+    "Y": 0.1,
+    "YDeceleration": 0.1,
+    "Z": 0.1,
+    "ZDeceleration": 0.1
+  },
+  "UseFirstPersonOverrides": false,
+  "Camera": {
+    "Pitch": {
+      "AngleRange": {
+        "Max": 45,
+        "Min": -30
+      },
+      "TargetNodes": []
+    },
+    "Yaw": {
+      "AngleRange": {
+        "Max": 45,
+        "Min": -45
+      },
+      "TargetNodes": []
+    }
+  }
+}

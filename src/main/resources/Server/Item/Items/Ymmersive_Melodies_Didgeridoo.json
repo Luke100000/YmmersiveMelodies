@@ -1,0 +1,67 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Didgeridoo.name",
+    "Description": "items.Ymmersive_Melodies_Didgeridoo.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Didgeridoo.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315.0,
+      290.0,
+      0.0
+    ],
+    "Translation": [
+      -19.0,
+      -18.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Didgeridoo.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Didgeridoo.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Didgeridoo",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Didgeridoo"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Didgeridoo"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}
