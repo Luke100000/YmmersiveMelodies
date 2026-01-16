@@ -1,0 +1,71 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Trumpet.name",
+    "Description": "items.Ymmersive_Melodies_Trumpet.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Trumpet.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      -110.0,
+      60.0,
+      10.0
+    ],
+    "Translation": [
+      28.0,
+      12.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Trumpet.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Trumpet.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Trumpet",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Trumpet"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Trumpet"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Bronze",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}

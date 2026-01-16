@@ -1,0 +1,55 @@
+$C = "../../Common.ui";
+
+$C.@PageOverlay {}
+
+$C.@Container {
+    Anchor: (Width: 600, Height: 260);
+
+    #Title {
+        $C.@Title {
+           @Text = %customUI.melodyUpload.title;
+        }
+    }
+
+    #Content {
+        LayoutMode: Top;
+
+        Label #Details {
+            Text: %customUI.melodyUpload.details;
+            Padding: 6;
+        }
+
+        $C.@TextField #Name {
+            @Anchor = (Left: 0, Top: 12);
+
+            PlaceholderText: %customUI.melodyUpload.name;
+        }
+
+        $C.@TextField #Url {
+            @Anchor = (Left: 0, Top: 12);
+
+            PlaceholderText: %customUI.melodyUpload.url;
+        }
+
+        Group {
+            LayoutMode: Left;
+            Anchor: (Top: 15);
+
+            $C.@SecondaryTextButton #Cancel {
+                Text: %customUI.melodySelection.cancel;
+                FlexWeight: 1;
+            }
+
+            Group {
+                Anchor: (Width: 5);
+            }
+
+            $C.@TextButton #Upload {
+                Text: %customUI.melodySelection.upload;
+                FlexWeight: 1;
+            }
+        }
+    }
+}
+
+$C.@BackButton {}

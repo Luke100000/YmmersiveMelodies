@@ -1,0 +1,15 @@
+$C = "../../Common.ui";
+
+Group {
+  LayoutMode: Left;
+
+  Label #Label {
+    Style: (
+        FontSize: 14,
+        TextColor: #888888,
+        RenderItalics: true
+    );
+    Padding: (Left: 8, Top: 2, Bottom: 0);
+    FlexWeight: 1;
+  }
+}

@@ -1,0 +1,41 @@
+$C = "../../Common.ui";
+
+$C.@PageOverlay {}
+
+$C.@Container #MainContainer {
+    Anchor: (Width: 600, Height: 500);
+
+    #Title {
+        $C.@Title {
+           @Text = "Performace Mode";
+        }
+    }
+
+    #Content {
+        LayoutMode: Top;
+
+        Label #Instructions {
+            Text: "Use o teclado para tocar. ESC para sair.";
+            Padding: 6;
+        }
+
+        $C.@TextField #InputCapture {
+            Anchor: (Width: 400, Height: 40);
+            PlaceholderText: "Clique aqui e digite para tocar...";
+        }
+
+        Label {
+             Text: "Selecione o Dispositivo MIDI:";
+             Padding: (Top: 20, Bottom: 5);
+        }
+
+        Group #DeviceList {
+            FlexWeight: 1;
+            LayoutMode: TopScrolling;
+            ScrollbarStyle: $C.@DefaultScrollbarStyle;
+        }
+    }
+}
+
+$C.@BackButton {}
+

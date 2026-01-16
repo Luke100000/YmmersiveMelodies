@@ -1,0 +1,56 @@
+
+> Configure project :
+No git tag found for HEAD, defaulting to version 0.0.1
+
+> Task :compileJava FAILED
+C:\Users\foque\OneDrive\Documents\YmmersiveMelodies\src\main\java\net\conczin\data\MelodyPlaybackInteraction.java:77: error: cannot find symbol
+                .getResource(EntityModule.get().getSpatialResourceType());
+                                               ^
+  symbol:   method getSpatialResourceType()
+  location: class EntityModule
+C:\Users\foque\OneDrive\Documents\YmmersiveMelodies\src\main\java\net\conczin\data\MelodyPlaybackInteraction.java:91: error: cannot find symbol
+                double distSq = entityTransform.getPosition().distanceSquared(position);
+                                                             ^
+  symbol:   method distanceSquared(Vector3d)
+  location: class Vector3d
+C:\Users\foque\OneDrive\Documents\YmmersiveMelodies\src\main\java\net\conczin\data\MelodyPlaybackInteraction.java:133: error: cannot find symbol
+        boolean isSneaking = player != null && player.isSneaking();
+                                                     ^
+  symbol:   method isSneaking()
+  location: variable player of type Player
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 errors
+
+[Incubating] Problems report is available at: file:///C:/Users/foque/OneDrive/Documents/YmmersiveMelodies/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  Note: Some input files use or override a deprecated API.
+  C:\Users\foque\OneDrive\Documents\YmmersiveMelodies\src\main\java\net\conczin\data\MelodyPlaybackInteraction.java:77: error: cannot find symbol
+                  .getResource(EntityModule.get().getSpatialResourceType());
+                                                 ^
+    symbol:   method getSpatialResourceType()
+    location: class EntityModule
+  C:\Users\foque\OneDrive\Documents\YmmersiveMelodies\src\main\java\net\conczin\data\MelodyPlaybackInteraction.java:91: error: cannot find symbol
+                  double distSq = entityTransform.getPosition().distanceSquared(position);
+                                                               ^
+    symbol:   method distanceSquared(Vector3d)
+    location: class Vector3d
+  C:\Users\foque\OneDrive\Documents\YmmersiveMelodies\src\main\java\net\conczin\data\MelodyPlaybackInteraction.java:133: error: cannot find symbol
+          boolean isSneaking = player != null && player.isSneaking();
+                                                       ^
+    symbol:   method isSneaking()
+    location: variable player of type Player
+  3 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+
+BUILD FAILED in 1s
+1 actionable task: 1 executed

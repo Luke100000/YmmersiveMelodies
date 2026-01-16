@@ -1,0 +1,12 @@
+{
+  "Parent": "Template_Ymmersive_Melodies_Head",
+  "Animations": {
+    "Idle": {
+      "Speed": 1,
+      "BlendingDuration": 0.1,
+      "ThirdPerson": "Characters/Animations/YmmersiveMelodies/Flute.blockyanim",
+      "Looping": true,
+      "FirstPerson": "Characters/Animations/YmmersiveMelodies/Flute_FPS.blockyanim"
+    }
+  }
+}

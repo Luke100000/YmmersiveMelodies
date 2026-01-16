@@ -1,0 +1,67 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Lute.name",
+    "Description": "items.Ymmersive_Melodies_Lute.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Lute.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      -35.0,
+      -35.0,
+      0.0
+    ],
+    "Translation": [
+      -10.0,
+      -26.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Lute.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Lute.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Lute",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Lute"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Lute"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 3
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}

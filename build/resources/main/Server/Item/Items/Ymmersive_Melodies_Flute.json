@@ -1,0 +1,79 @@
+{
+  "Parent": "Template_Ymmersive_Melodies",
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Flute.name",
+    "Description": "items.Ymmersive_Melodies_Flute.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Flute.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      322.0,
+      317.0,
+      0.0
+    ],
+    "Translation": [
+      -12.0,
+      -23.0
+    ]
+  },
+  "Quality": "Common",
+  "Model": "Items/Instruments/Ymmersive_Melodies_Flute.blockymodel",
+  "Texture": "Items/Instruments/Ymmersive_Melodies_Flute.png",
+  "PlayerAnimationsId": "Ymmersive_Melodies_Flute",
+  "Interactions": {
+    "Held": {
+      "Interactions": [
+        {
+          "Type": "Ymmersive_Melodies_Melody_Playback",
+          "Instrument": "Flute"
+        }
+      ],
+      "Cooldown": {
+        "SkipCooldownReset": true
+      }
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "OpenCustomUI",
+          "Page": {
+            "Id": "Ymmersive_Melodies_Selection",
+            "Instrument": "Flute"
+          }
+        }
+      ]
+    }
+  },
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Cotton",
+        "Quantity": 3
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  }
+}

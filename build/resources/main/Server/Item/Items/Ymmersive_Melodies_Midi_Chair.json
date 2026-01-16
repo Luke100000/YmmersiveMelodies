@@ -1,0 +1,93 @@
+{
+  "TranslationProperties": {
+    "Name": "items.Ymmersive_Melodies_Midi_Chair.name",
+    "Description": "items.Ymmersive_Melodies_Midi_Chair.description"
+  },
+  "PlayerAnimationsId": "Block",
+  "Categories": [
+    "Furniture.Furniture",
+    "Items.Tools"
+  ],
+  "Icon": "Icons/ItemsGenerated/Ymmersive_Melodies_Handpan.png",
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "Recipe": {
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Builders",
+        "Type": "StructuralCrafting",
+        "Categories": [
+          "Chair"
+        ]
+      }
+    ]
+  },
+  "BlockType": {
+    "BlockParticleSetId": "Wood",
+    "BlockSoundSetId": "Wood",
+    "CustomModel": "Blocks/Decorative_Sets/Tavern/Chair.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Decorative_Sets/Tavern/Chair_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "DrawType": "Model",
+    "Flags": {},
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Woods"
+      }
+    },
+    "Group": "Wood",
+    "HitboxType": "Chair_Small",
+    "Material": "Solid",
+    "Opacity": "Transparent",
+    "ParticleColor": "#543022",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "Seats": [
+      {
+        "Offset": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0.15
+        },
+        "Yaw": 0
+      }
+    ],
+    "Interactions": {
+      "Use": "Ymmersive_Melodies_Midi_Chair_Sit"
+    },
+    "VariantRotation": "NESW"
+  },
+  "Model": "Blocks/Decorative_Sets/Tavern/Chair.blockymodel",
+  "Texture": "Blocks/Decorative_Sets/Tavern/Chair_Texture.png",
+  "ResourceTypes": [
+    {
+      "Id": "Fuel"
+    },
+    {
+      "Id": "Charcoal"
+    }
+  ],
+  "Tags": {
+    "Type": [
+      "Furniture"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Blocks_Wood"
+}
