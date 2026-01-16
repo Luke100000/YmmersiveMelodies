@@ -24,3 +24,6 @@ Ymmersive_Melodies_Trumpet.description = A brass wind instrument known for its b
 
 Ymmersive_Melodies_Vielle.name = Vielle
 Ymmersive_Melodies_Vielle.description = A medieval stringed instrument with a rich, resonant tone.
+
+Ymmersive_Melodies_Midi_Chair.name = MidiToQwerty Chair
+Ymmersive_Melodies_Midi_Chair.description = A special chair that activates MidiToQwerty mode when sitting with an instrument.

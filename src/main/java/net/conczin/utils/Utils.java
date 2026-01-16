@@ -53,4 +53,32 @@ public class Utils {
         assert playerRefComponent != null;
         player.getPageManager().openCustomPage(ref, store, pageConstructor.apply(playerRefComponent, CustomPageLifetime.CanDismiss));
     }
+
+    /**
+     * Verifica se o jogador está sentado em uma cadeira Tavern.
+     * Verifica se há um estado armazenado indicando que está usando a cadeira Tavern.
+     * O estado é definido quando o jogador senta na cadeira Tavern.
+     * 
+     * @param ref Referência da entidade do jogador
+     * @return true se o jogador está sentado na cadeira Tavern
+     */
+    public static boolean hasMidiChair(Ref<EntityStore> ref) {
+        try {
+            net.conczin.data.MidiToQwertyState state = getData(ref, "SittingOnTavernChair", net.conczin.data.MidiToQwertyState.CODEC);
+            return state != null && state.active;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    /**
+     * Marca que o jogador está sentado em uma cadeira Tavern.
+     * 
+     * @param ref Referência da entidade do jogador
+     * @param sitting true se está sentado, false caso contrário
+     */
+    public static void setSittingOnTavernChair(Ref<EntityStore> ref, boolean sitting) {
+        net.conczin.data.MidiToQwertyState state = new net.conczin.data.MidiToQwertyState(sitting);
+        setData(ref, "SittingOnTavernChair", net.conczin.data.MidiToQwertyState.CODEC, state);
+    }
 }

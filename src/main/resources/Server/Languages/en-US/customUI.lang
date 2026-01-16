@@ -13,3 +13,13 @@ melodyUpload.details = Provide a direct link to a MIDI file and give it a name.
 melodyUpload.name = Melody Name
 melodyUpload.url = URL to MIDI File
 melodyUpload.error = "Error: {message}"
+
+midiDebugConsole.title = MidiToQwerty Debug Console
+midiDebugConsole.hasInstrument = Instrument in Hand: {status} ({item})
+midiDebugConsole.isSitting = Sitting on Tavern Chair: {status}
+midiDebugConsole.midiToQwertyActive = MidiToQwerty Mode Active: {status}
+midiDebugConsole.keyboardInterception = Keyboard Interception Active: {status}
+midiDebugConsole.midiDevice = MIDI Device: {status}
+midiDebugConsole.itemInHand = Item in Hand: {item}
+midiDebugConsole.refresh = Refresh
+midiDebugConsole.close = Close
