@@ -1,3 +1,7 @@
+# 1.0.5
+
+* Fixed issues with non-ascii characters in melody names
+
 # 1.0.4
 
 * Fixed flute recipe

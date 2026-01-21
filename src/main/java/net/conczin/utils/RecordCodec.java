@@ -271,12 +271,56 @@ public abstract class RecordCodec<C> implements Codec<C> {
         };
     }
 
+    @Nonnull
+    public static String readRawJson(@Nonnull RawJsonReader reader) throws IOException {
+        reader.consumeWhiteSpace();
+        int first = reader.peek();
+        if (first == -1) throw new IOException("Unexpected EOF!");
+
+        StringBuilder sb = new StringBuilder();
+        char startChar = (char) first;
+
+        int depth = 0;
+        boolean inString = false;
+        boolean escape = false;
+
+        while (true) {
+            int j = reader.read();
+            if (j == -1) break;
+            char c = (char) j;
+            sb.append(c);
+
+            if (inString) {
+                if (escape) {
+                    escape = false;
+                } else if (c == '\\') {
+                    escape = true;
+                } else if (c == '"') {
+                    inString = false;
+                }
+                continue;
+            }
+
+            switch (c) {
+                case '"' -> inString = true;
+                case '{', '[' -> depth++;
+                case '}', ']' -> {
+                    depth--;
+                    if (depth == 0) return sb.toString();
+                }
+            }
+        }
+
+        throw new IOException("Unexpected EOF!");
+    }
+
+
     @Nullable
     @Override
     public C decodeJson(@Nonnull RawJsonReader reader, ExtraInfo extraInfo) throws IOException {
-        //noinspection deprecation
-        BsonValue bsonvalue = RawJsonReader.readBsonValue(reader);
-        return this.decode(bsonvalue, extraInfo);
+        String rawJson = readRawJson(reader);
+        BsonValue bson = BsonDocument.parse(rawJson);
+        return this.decode(bson, extraInfo);
     }
 
     @Override
