@@ -1,11 +1,11 @@
-items.Ymmersive_Melodies_Bagpipe.name = Bagpipe
-items.Ymmersive_Melodies_Bagpipe.description = A traditional wind instrument.
+items.Ymmersive_Melodies_Bagpipe.name = Dudelsack
+items.Ymmersive_Melodies_Bagpipe.description = Ein traditionelles Blasinstrument.
 
 items.Ymmersive_Melodies_Didgeridoo.name = Didgeridoo
-items.Ymmersive_Melodies_Didgeridoo.description = A long wooden wind instrument producing deep, resonant sounds.
+items.Ymmersive_Melodies_Didgeridoo.description = Ein langes hölzernes Blasinstrument, das tiefe, klangvolle Töne erzeugt.
 
-items.Ymmersive_Melodies_Flute.name = Flute
-items.Ymmersive_Melodies_Flute.description = A slender wind instrument known for its bright, airy tones.
+items.Ymmersive_Melodies_Flute.name = Flöte
+items.Ymmersive_Melodies_Flute.description = Ein schlankes Blasinstrument, das für seine hellen, luftigen Töne bekannt ist.
 
 items.Ymmersive_Melodies_Handpan.name = Handpan
 items.Ymmersive_Melodies_Handpan.description = A steel drum-like instrument that produces soothing, melodic sounds when struck.
@@ -40,4 +40,4 @@ customUI.melodyUpload.title = Upload Melody
 customUI.melodyUpload.details = Provide a direct link to a MIDI file and give it a name.
 customUI.melodyUpload.name = Melody Name
 customUI.melodyUpload.url = URL to MIDI File
-customUI.melodyUpload.error = "Error: {message}"
+customUI.melodyUpload.error = "Error\: {message}"
