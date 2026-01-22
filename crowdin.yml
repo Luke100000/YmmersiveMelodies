@@ -1,0 +1,3 @@
+files:
+  - source: src/main/resources/Server/Languages/en-US/*.lang
+    translation: /src/main/resources/Server/Languages/%locale%/%original_file_name%
