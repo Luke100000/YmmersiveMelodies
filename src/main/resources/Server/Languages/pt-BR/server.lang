@@ -39,5 +39,5 @@ customUI.melodySelection.separator.server = Server Melodies
 customUI.melodyUpload.title = Upload Melody
 customUI.melodyUpload.details = Provide a direct link to a MIDI file and give it a name.
 customUI.melodyUpload.name = Melody Name
-customUI.melodyUpload.url = URL to MIDI File
-customUI.melodyUpload.error = "Error\: {message}"
+customUI.melodyUpload.url = URL para arquivo MIDI
+customUI.melodyUpload.error = "Erro\: {message}"
