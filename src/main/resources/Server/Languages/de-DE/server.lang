@@ -1,0 +1,43 @@
+items.Ymmersive_Melodies_Bagpipe.name = Dudelsack
+items.Ymmersive_Melodies_Bagpipe.description = Ein traditionelles Blasinstrument.
+
+items.Ymmersive_Melodies_Didgeridoo.name = Didgeridoo
+items.Ymmersive_Melodies_Didgeridoo.description = Ein langes hölzernes Blasinstrument, das tiefe, klangvolle Töne erzeugt.
+
+items.Ymmersive_Melodies_Flute.name = Flöte
+items.Ymmersive_Melodies_Flute.description = Ein schlankes Blasinstrument, das für seine hellen, luftigen Töne bekannt ist.
+
+items.Ymmersive_Melodies_Handpan.name = Handpan
+items.Ymmersive_Melodies_Handpan.description = Ein Instrument ähnlich einer Stahltrommel, das beim Anschlagen beruhigende, melodische Klänge erzeugt.
+
+items.Ymmersive_Melodies_Lute.name = Laute
+items.Ymmersive_Melodies_Lute.description = Ein Saiteninstrument mit einem warmen, sanften Klang.
+
+items.Ymmersive_Melodies_Piano.name = Klavier
+items.Ymmersive_Melodies_Piano.description = Ein vielseitiges Tasteninstrument, das eine breite Palette von Musikstilen erzeugen kann.
+
+items.Ymmersive_Melodies_Tiny_Drum.name = Kleine Trommel
+items.Ymmersive_Melodies_Tiny_Drum.description = Ein kleines Perkussionsinstrument, das jedem Musikensemble den Rhythmus verleiht.
+
+items.Ymmersive_Melodies_Trumpet.name = Trompete
+items.Ymmersive_Melodies_Trumpet.description = Ein Blechblasinstrument, das für seinen hellen, kräftigen Klang bekannt ist.
+
+items.Ymmersive_Melodies_Vielle.name = Fidel
+items.Ymmersive_Melodies_Vielle.description = Ein mittelalterliches Saiteninstrument mit einem reichen, resonanten Klang.
+
+
+customUI.melodySelection.title = Melodie auswählen
+customUI.melodySelection.stop = Stop
+customUI.melodySelection.delete = Löschen
+customUI.melodySelection.tracks = Spuren
+customUI.melodySelection.upload = Hochladen
+customUI.melodySelection.cancel = Abbrechen
+customUI.melodySelection.search = Suchen
+customUI.melodySelection.separator.own = Deine Melodien
+customUI.melodySelection.separator.server = Server Melodien
+
+customUI.melodyUpload.title = Melodie hochladen
+customUI.melodyUpload.details = Gib einen direkten Link zu einer MIDI-Datei und einen Namen an.
+customUI.melodyUpload.name = Melodie Name
+customUI.melodyUpload.url = URL zur MIDI-Datei
+customUI.melodyUpload.error = "Fehler\: {message}"

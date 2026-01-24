@@ -1,0 +1,43 @@
+items.Ymmersive_Melodies_Bagpipe.name = Bagpipe
+items.Ymmersive_Melodies_Bagpipe.description = A traditional wind instrument.
+
+items.Ymmersive_Melodies_Didgeridoo.name = Didgeridoo
+items.Ymmersive_Melodies_Didgeridoo.description = A long wooden wind instrument producing deep, resonant sounds.
+
+items.Ymmersive_Melodies_Flute.name = Flute
+items.Ymmersive_Melodies_Flute.description = A slender wind instrument known for its bright, airy tones.
+
+items.Ymmersive_Melodies_Handpan.name = Handpan
+items.Ymmersive_Melodies_Handpan.description = A steel drum-like instrument that produces soothing, melodic sounds when struck.
+
+items.Ymmersive_Melodies_Lute.name = Lute
+items.Ymmersive_Melodies_Lute.description = A stringed instrument with a warm, mellow tone.
+
+items.Ymmersive_Melodies_Piano.name = Piano
+items.Ymmersive_Melodies_Piano.description = A versatile keyboard instrument capable of producing a wide range of musical styles.
+
+items.Ymmersive_Melodies_Tiny_Drum.name = Tiny Drum
+items.Ymmersive_Melodies_Tiny_Drum.description = A small percussion instrument that adds rhythm to any musical ensemble.
+
+items.Ymmersive_Melodies_Trumpet.name = Trumpet
+items.Ymmersive_Melodies_Trumpet.description = A brass wind instrument known for its bright, powerful sound.
+
+items.Ymmersive_Melodies_Vielle.name = Vielle
+items.Ymmersive_Melodies_Vielle.description = A medieval stringed instrument with a rich, resonant tone.
+
+
+customUI.melodySelection.title = Select Melody
+customUI.melodySelection.stop = Stop
+customUI.melodySelection.delete = Delete
+customUI.melodySelection.tracks = Tracks
+customUI.melodySelection.upload = Upload
+customUI.melodySelection.cancel = Cancel
+customUI.melodySelection.search = Search
+customUI.melodySelection.separator.own = Your Melodies
+customUI.melodySelection.separator.server = Server Melodies
+
+customUI.melodyUpload.title = Upload Melody
+customUI.melodyUpload.details = Provide a direct link to a MIDI file and give it a name.
+customUI.melodyUpload.name = Melody Name
+customUI.melodyUpload.url = URL to MIDI File
+customUI.melodyUpload.error = "Error\: {message}"
