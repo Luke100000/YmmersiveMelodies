@@ -25,9 +25,16 @@ public final class MelodyProgress {
                     o -> o.time,
                     (o, p) -> o.time = p.time)
             .add()
+            .appendInherited(
+                    new KeyedCodec<>("StartWorldTime", Codec.LONG),
+                    (o, v) -> o.startWorldTime = v,
+                    o -> o.startWorldTime,
+                    (o, p) -> o.startWorldTime = p.startWorldTime)
+            .add()
             .build();
 
     public String melody = "";
     public long worldTime = 0;
     public long time = 0;
+    public long startWorldTime = 0;
 }
