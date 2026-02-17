@@ -37,7 +37,7 @@ public record Melody(String name, List<Track> tracks) {
                 "Note", Codec.INTEGER, Note::note,
                 "Velocity", Codec.INTEGER, Note::velocity,
                 "Time", Codec.INTEGER, Note::time,
-                "Length", Codec.INTEGER, Note::time,
+                "Length", Codec.INTEGER, Note::length,
                 Note::new
         );
 
