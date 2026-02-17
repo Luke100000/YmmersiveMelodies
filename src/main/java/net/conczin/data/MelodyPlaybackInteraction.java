@@ -23,6 +23,7 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Sim
 import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import net.conczin.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
@@ -78,16 +79,12 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
         MelodyProgress progress = itemInHand.getFromMetadataOrDefault("MelodyProgress", MelodyProgress.CODEC);
         if (progress.melody.isEmpty()) return;
 
-        // TODO: Sync
-
         // This should be the tick rate plus max jitter margin
         long buffer = 150L;
 
         // Get time
         Instant timeResource = store.getResource(TimeResource.getResourceType()).getNow();
         long timeMs = timeResource.getEpochSecond() * 1000L + timeResource.getNano() / 1_000_000L;
-        long delta = Math.min(timeMs - progress.worldTime, buffer);
-        if (delta <= 0) return;
 
         // Get melody
         Melody melody;
@@ -103,12 +100,36 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         if (melody == null) return;
 
+        UUID uuid = Utils.getUUID(ref);
+
+        // Sync: initialize shared time anchor on first tick
+        if (progress.startWorldTime == 0) {
+            progress.startWorldTime = MelodySyncRegistry.getOrCreateAnchor(uuid, progress.melody, position, timeMs, melody.duration());
+            progress.worldTime = timeMs;
+            progress.time = 0;
+            ItemStack newItemInHand = itemInHand.withMetadata("MelodyProgress", MelodyProgress.CODEC, progress);
+            ItemContainer container = context.getHeldItemContainer();
+            if (container != null) {
+                container.replaceItemStackInSlot(context.getHeldItemSlot(), itemInHand, newItemInHand);
+            }
+            return;
+        }
+
+        // Sync: derive playback position from shared anchor
+        long playbackTime = timeMs - progress.startWorldTime;
+        long prevPlaybackTime = progress.worldTime - progress.startWorldTime;
+        long delta = Math.min(playbackTime - prevPlaybackTime, buffer);
+        if (delta <= 0) return;
+
+        // Keep the sync session alive
+        MelodySyncRegistry.keepAlive(uuid, progress.melody, progress.startWorldTime, position, timeMs);
+
         // Play notes
         for (Melody.Track track : melody.tracks()) {
             // TODO: Track filter
             for (Melody.Note note : track.notes()) {
-                if (note.time() >= progress.time && note.time() < progress.time + delta) {
-                    long delay = note.time() - (progress.time + delta) + buffer;
+                if (note.time() >= prevPlaybackTime && note.time() < prevPlaybackTime + delta) {
+                    long delay = note.time() - (prevPlaybackTime + delta) + buffer;
                     if (delay <= 0) continue;
 
                     float volume = note.velocity() / 64.0f;
@@ -134,7 +155,7 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         // Update states
         progress.worldTime = timeMs;
-        progress.time += delta;
+        progress.time = playbackTime;
         ItemStack newItemInHand = itemInHand.withMetadata("MelodyProgress", MelodyProgress.CODEC, progress);
         ItemContainer container = context.getHeldItemContainer();
         if (container != null) {
