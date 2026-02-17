@@ -156,6 +156,15 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
         // Update states
         progress.worldTime = timeMs;
         progress.time = playbackTime;
+
+        // Auto-stop: song finished, clear melody
+        if (playbackTime > melody.duration()) {
+            MelodySyncRegistry.removePlayer(uuid, progress.melody);
+            progress.melody = "";
+            progress.time = 0;
+            progress.startWorldTime = 0;
+        }
+
         ItemStack newItemInHand = itemInHand.withMetadata("MelodyProgress", MelodyProgress.CODEC, progress);
         ItemContainer container = context.getHeldItemContainer();
         if (container != null) {
