@@ -102,16 +102,14 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         UUID uuid = Utils.getUUID(ref);
 
+        int duration = melody.duration();
+
         // Sync: initialize shared time anchor on first tick
         if (progress.startWorldTime == 0) {
-            progress.startWorldTime = MelodySyncRegistry.getOrCreateAnchor(uuid, progress.melody, position, timeMs, melody.duration());
+            progress.startWorldTime = MelodySyncRegistry.getOrCreateAnchor(uuid, progress.melody, position, timeMs, duration);
             progress.worldTime = timeMs;
             progress.time = 0;
-            ItemStack newItemInHand = itemInHand.withMetadata("MelodyProgress", MelodyProgress.CODEC, progress);
-            ItemContainer container = context.getHeldItemContainer();
-            if (container != null) {
-                container.replaceItemStackInSlot(context.getHeldItemSlot(), itemInHand, newItemInHand);
-            }
+            saveProgress(context, itemInHand, progress);
             return;
         }
 
@@ -158,13 +156,17 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
         progress.time = playbackTime;
 
         // Auto-stop: song finished, clear melody
-        if (playbackTime > melody.duration()) {
+        if (playbackTime > duration) {
             MelodySyncRegistry.removePlayer(uuid, progress.melody);
             progress.melody = "";
             progress.time = 0;
             progress.startWorldTime = 0;
         }
 
+        saveProgress(context, itemInHand, progress);
+    }
+
+    private static void saveProgress(InteractionContext context, ItemStack itemInHand, MelodyProgress progress) {
         ItemStack newItemInHand = itemInHand.withMetadata("MelodyProgress", MelodyProgress.CODEC, progress);
         ItemContainer container = context.getHeldItemContainer();
         if (container != null) {
