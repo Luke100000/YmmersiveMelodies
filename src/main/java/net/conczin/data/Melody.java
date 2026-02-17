@@ -14,6 +14,17 @@ public record Melody(String name, List<Track> tracks) {
             Melody::new
     );
 
+    public int duration() {
+        int max = 0;
+        for (Track track : tracks) {
+            for (Note note : track.notes()) {
+                int end = note.time() + note.length();
+                if (end > max) max = end;
+            }
+        }
+        return max;
+    }
+
     public record Track(String name, List<Note> notes) {
         public static final RecordCodec<Track> CODEC = RecordCodec.composite(
                 "Name", Codec.STRING, Track::name,
