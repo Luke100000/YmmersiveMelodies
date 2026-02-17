@@ -62,7 +62,7 @@ public final class MelodySyncRegistry {
         sessions.compute(melodyId, (key, existing) -> {
             if (existing == null) return null;
             for (SyncSession session : existing) {
-                session.playerPositions.removeIf(p -> p.playerId.equals(playerId));
+                session.playerPositions.removeIf(p -> p.playerId().equals(playerId));
             }
             existing.removeIf(session -> session.playerPositions.isEmpty());
             return existing.isEmpty() ? null : existing;
@@ -85,20 +85,15 @@ public final class MelodySyncRegistry {
             }
 
             if (target != null) {
-                // Find position entry by player UUID
-                ActivePosition match = null;
-                for (ActivePosition p : target.playerPositions) {
-                    if (p.playerId.equals(playerId)) {
-                        match = p;
+                boolean found = false;
+                for (int i = 0; i < target.playerPositions.size(); i++) {
+                    if (target.playerPositions.get(i).playerId().equals(playerId)) {
+                        target.playerPositions.set(i, new ActivePosition(playerId, position, currentWorldTime));
+                        found = true;
                         break;
                     }
                 }
-                if (match != null) {
-                    match.x = position.x;
-                    match.y = position.y;
-                    match.z = position.z;
-                    match.lastActiveTime = currentWorldTime;
-                } else {
+                if (!found) {
                     target.playerPositions.add(new ActivePosition(playerId, position, currentWorldTime));
                 }
             } else {
@@ -116,17 +111,9 @@ public final class MelodySyncRegistry {
         });
     }
 
-    private static final class ActivePosition {
-        final UUID playerId;
-        double x, y, z;
-        long lastActiveTime;
-
+    private record ActivePosition(UUID playerId, double x, double y, double z, long lastActiveTime) {
         ActivePosition(UUID playerId, Vector3d position, long time) {
-            this.playerId = playerId;
-            this.x = position.x;
-            this.y = position.y;
-            this.z = position.z;
-            this.lastActiveTime = time;
+            this(playerId, position.x, position.y, position.z, time);
         }
     }
 
@@ -140,15 +127,15 @@ public final class MelodySyncRegistry {
         }
 
         void pruneStalePositions(long currentTime, long thresholdMs) {
-            playerPositions.removeIf(p -> currentTime - p.lastActiveTime > thresholdMs);
+            playerPositions.removeIf(p -> currentTime - p.lastActiveTime() > thresholdMs);
         }
 
         double closestPlayerDistSq(Vector3d position) {
             double closestDistSq = Double.MAX_VALUE;
             for (ActivePosition p : playerPositions) {
-                double dx = position.x - p.x;
-                double dy = position.y - p.y;
-                double dz = position.z - p.z;
+                double dx = position.x - p.x();
+                double dy = position.y - p.y();
+                double dz = position.z - p.z();
                 double distSq = dx * dx + dy * dy + dz * dz;
                 if (distSq < closestDistSq) {
                     closestDistSq = distSq;
