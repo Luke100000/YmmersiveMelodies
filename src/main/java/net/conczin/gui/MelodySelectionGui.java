@@ -14,6 +14,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import net.conczin.data.Melody;
 import net.conczin.data.MelodyAsset;
+import net.conczin.data.MelodyPlaybackInteraction;
 import net.conczin.data.MelodyProgress;
 import net.conczin.data.MelodySyncRegistry;
 import net.conczin.data.YmmersiveMelodiesRegistry;
@@ -179,12 +180,13 @@ public class MelodySelectionGui extends CodecDataInteractiveUIPage<MelodySelecti
 
     private void setMelody(Ref<EntityStore> ref, String selectedMelody) {
         MelodyProgress progress = Utils.getData(ref, "MelodyProgress", MelodyProgress.CODEC);
-        if (!progress.melody.isEmpty()) {
+        if (!progress.melody.isEmpty() && MelodyPlaybackInteraction.multiplayerMode) {
             MelodySyncRegistry.removePlayer(Utils.getUUID(ref), progress.melody);
         }
         progress.melody = selectedMelody;
         progress.time = 0;
         progress.startWorldTime = 0;
+        progress.worldTime = 0;
         Utils.setData(ref, "MelodyProgress", MelodyProgress.CODEC, progress);
         this.selectedMelody = selectedMelody;
     }

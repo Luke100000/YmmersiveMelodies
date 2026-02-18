@@ -23,6 +23,7 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Sim
 import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.Constants;
 import net.conczin.utils.Utils;
 
 import javax.annotation.Nonnull;
@@ -49,6 +50,12 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
     private static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
     private static final int[] LENGTHS = {125, 250, 375, 500, 625, 750, 875, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 4000};
+
+    public static volatile boolean multiplayerMode = !Constants.SINGLEPLAYER;
+
+    public static void setMultiplayerMode(boolean multiplayer) {
+        multiplayerMode = multiplayer;
+    }
 
     private String instrument;
 
@@ -104,23 +111,48 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         int duration = melody.duration();
 
-        // Sync: initialize shared time anchor on first tick
-        if (progress.startWorldTime == 0) {
-            progress.startWorldTime = MelodySyncRegistry.getOrCreateAnchor(uuid, progress.melody, position, timeMs, duration);
+        // In singleplayer, cancel on item change (pause on scroll-away)
+        // In multiplayer, keep ticking in background for other players
+        this.cancelOnItemChange = !multiplayerMode;
+
+        long prevPlaybackTime;
+        long delta;
+
+        if (multiplayerMode) {
+            // Sync: initialize shared time anchor on first tick
+            if (progress.startWorldTime == 0) {
+                progress.startWorldTime = MelodySyncRegistry.getOrCreateAnchor(uuid, progress.melody, position, timeMs, duration);
+                progress.worldTime = timeMs;
+                progress.time = 0;
+                saveProgress(context, itemInHand, progress);
+                return;
+            }
+
+            // Derive playback position from shared anchor
+            long playbackTime = timeMs - progress.startWorldTime;
+            prevPlaybackTime = progress.worldTime - progress.startWorldTime;
+            delta = Math.min(playbackTime - prevPlaybackTime, buffer);
+            if (delta <= 0) return;
+
+            MelodySyncRegistry.keepAlive(uuid, progress.melody, progress.startWorldTime, position, timeMs);
+
             progress.worldTime = timeMs;
-            progress.time = 0;
-            saveProgress(context, itemInHand, progress);
-            return;
+            progress.time = playbackTime;
+        } else {
+            // Singleplayer: warmup on first tick
+            if (progress.worldTime == 0) {
+                progress.worldTime = timeMs;
+                saveProgress(context, itemInHand, progress);
+                return;
+            }
+
+            prevPlaybackTime = progress.time;
+            delta = Math.min(timeMs - progress.worldTime, buffer);
+            if (delta <= 0) return;
+
+            progress.worldTime = timeMs;
+            progress.time += delta;
         }
-
-        // Sync: derive playback position from shared anchor
-        long playbackTime = timeMs - progress.startWorldTime;
-        long prevPlaybackTime = progress.worldTime - progress.startWorldTime;
-        long delta = Math.min(playbackTime - prevPlaybackTime, buffer);
-        if (delta <= 0) return;
-
-        // Keep the sync session alive
-        MelodySyncRegistry.keepAlive(uuid, progress.melody, progress.startWorldTime, position, timeMs);
 
         // Play notes
         for (Melody.Track track : melody.tracks()) {
@@ -151,16 +183,15 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
             }
         }
 
-        // Update states
-        progress.worldTime = timeMs;
-        progress.time = playbackTime;
-
         // Auto-stop: song finished, clear melody
-        if (playbackTime > duration) {
-            MelodySyncRegistry.removePlayer(uuid, progress.melody);
+        if (progress.time > duration) {
+            if (multiplayerMode) {
+                MelodySyncRegistry.removePlayer(uuid, progress.melody);
+            }
             progress.melody = "";
             progress.time = 0;
             progress.startWorldTime = 0;
+            progress.worldTime = 0;
         }
 
         saveProgress(context, itemInHand, progress);
