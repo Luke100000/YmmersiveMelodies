@@ -1,0 +1,43 @@
+items.Ymmersive_Melodies_Bagpipe.name = Волынка
+items.Ymmersive_Melodies_Bagpipe.description = Традиционный духовой инструмент.
+
+items.Ymmersive_Melodies_Didgeridoo.name = Диджериду
+items.Ymmersive_Melodies_Didgeridoo.description = Длинный деревянный духовой инструмент, издающий глубокие гулкие звуки.
+
+items.Ymmersive_Melodies_Flute.name = Флейта
+items.Ymmersive_Melodies_Flute.description = Тонкий духовой инструмент, известный благодаря своему яркому легкому тону.
+
+items.Ymmersive_Melodies_Handpan.name = Ханг
+items.Ymmersive_Melodies_Handpan.description = Стальной ударный инструмент, издающий мягкие мелодичные звуки при ударе.
+
+items.Ymmersive_Melodies_Lute.name = Лютня
+items.Ymmersive_Melodies_Lute.description = Струнный инструмент с тёплым нежным тоном.
+
+items.Ymmersive_Melodies_Piano.name = Пианино
+items.Ymmersive_Melodies_Piano.description = Универсальный клавишный инструмент, подходящий в любой музыкальный жанр.
+
+items.Ymmersive_Melodies_Tiny_Drum.name = Маленький Барабан
+items.Ymmersive_Melodies_Tiny_Drum.description = Небольшой ударный инструмент, добавляющий ритм в любую композицию.
+
+items.Ymmersive_Melodies_Trumpet.name = Труба
+items.Ymmersive_Melodies_Trumpet.description = Духовой инструмент, известный своим ярким мощным звуком.
+
+items.Ymmersive_Melodies_Vielle.name = Фидель
+items.Ymmersive_Melodies_Vielle.description = Средневековый струнный инструмент с богатым звучным тоном.
+
+
+customUI.melodySelection.title = Выберите Мелодию
+customUI.melodySelection.stop = Стоп
+customUI.melodySelection.delete = Удалить
+customUI.melodySelection.tracks = Треки
+customUI.melodySelection.upload = Загрузить
+customUI.melodySelection.cancel = Отмена
+customUI.melodySelection.search = Поиск
+customUI.melodySelection.separator.own = Ваши Мелодии
+customUI.melodySelection.separator.server = Мелодии Сервера
+
+customUI.melodyUpload.title = Загрузить Мелодию
+customUI.melodyUpload.details = Укажите прямую ссылку на MIDI-файл и дайте ему название.
+customUI.melodyUpload.name = Название Мелодии
+customUI.melodyUpload.url = Ссылка на MIDI-файл
+customUI.melodyUpload.error = "Ошибка\: {message}"
