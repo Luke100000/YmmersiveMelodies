@@ -139,13 +139,6 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
             progress.worldTime = timeMs;
             progress.time = playbackTime;
         } else {
-            // Singleplayer: warmup on first tick
-            if (progress.worldTime == 0) {
-                progress.worldTime = timeMs;
-                saveProgress(context, itemInHand, progress);
-                return;
-            }
-
             prevPlaybackTime = progress.time;
             delta = Math.min(timeMs - progress.worldTime, buffer);
             if (delta <= 0) return;
