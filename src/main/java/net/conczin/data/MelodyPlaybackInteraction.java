@@ -86,8 +86,7 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
         // Get time
         Instant timeResource = store.getResource(TimeResource.getResourceType()).getNow();
         long timeMs = timeResource.getEpochSecond() * 1000L + timeResource.getNano() / 1_000_000L;
-        long delta = Math.min(timeMs - progress.worldTime, buffer);
-        if (delta <= 0) return;
+        long delta = Math.max(0, Math.min(timeMs - progress.worldTime, buffer));
 
         // Get melody
         Melody melody;
