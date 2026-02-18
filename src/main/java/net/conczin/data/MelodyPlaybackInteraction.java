@@ -107,8 +107,6 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         if (melody == null) return;
 
-        UUID uuid = Utils.getUUID(ref);
-
         int duration = melody.duration();
 
         // In singleplayer, cancel on item change (pause on scroll-away)
@@ -117,8 +115,11 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         long prevPlaybackTime;
         long delta;
+        UUID uuid = null;
 
         if (multiplayerMode) {
+            uuid = Utils.getUUID(ref);
+
             // Sync: initialize shared time anchor on first tick
             if (progress.startWorldTime == 0) {
                 progress.startWorldTime = MelodySyncRegistry.getOrCreateAnchor(uuid, progress.melody, position, timeMs, duration);
