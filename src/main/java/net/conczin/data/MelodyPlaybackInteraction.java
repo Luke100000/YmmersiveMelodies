@@ -178,7 +178,7 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
         }
 
         // Auto-stop: song finished, clear melody
-        if (progress.time > duration) {
+        if (progress.time >= duration) {
             if (multiplayerMode) {
                 MelodySyncRegistry.removePlayer(uuid, progress.melody);
             }

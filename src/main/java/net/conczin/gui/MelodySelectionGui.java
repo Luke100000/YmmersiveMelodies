@@ -180,7 +180,7 @@ public class MelodySelectionGui extends CodecDataInteractiveUIPage<MelodySelecti
 
     private void setMelody(Ref<EntityStore> ref, String selectedMelody) {
         MelodyProgress progress = Utils.getData(ref, "MelodyProgress", MelodyProgress.CODEC);
-        if (!progress.melody.isEmpty() && MelodyPlaybackInteraction.multiplayerMode) {
+        if (!progress.melody.isEmpty()) {
             MelodySyncRegistry.removePlayer(Utils.getUUID(ref), progress.melody);
         }
         progress.melody = selectedMelody;
