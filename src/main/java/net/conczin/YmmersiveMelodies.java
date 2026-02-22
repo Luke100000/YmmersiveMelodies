@@ -6,9 +6,13 @@ import com.hypixel.hytale.component.ResourceType;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.server.OpenCustomUIInteraction;
+import com.hypixel.hytale.server.core.Constants;
+import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.modules.singleplayer.SingleplayerRequestAccessEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.serveraccess.Access;
 import net.conczin.data.MelodyAsset;
 import net.conczin.data.MelodyPlaybackInteraction;
 import net.conczin.data.YmmersiveMelodiesRegistry;
@@ -53,6 +57,13 @@ public class YmmersiveMelodies extends JavaPlugin {
                 "Ymmersive_Melodies_Selection",
                 MelodySelectionSupplier.class,
                 MelodySelectionSupplier.CODEC);
+
+        if (Constants.SINGLEPLAYER) {
+            HytaleServer.get().getEventBus()
+                    .register(SingleplayerRequestAccessEvent.class, event ->
+                            MelodyPlaybackInteraction.setMultiplayerMode(event.getAccess() != Access.Private)
+                    );
+        }
     }
 
     public static YmmersiveMelodies getInstance() {

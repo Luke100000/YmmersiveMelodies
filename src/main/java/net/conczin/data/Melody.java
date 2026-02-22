@@ -7,12 +7,27 @@ import net.conczin.utils.RecordCodec;
 import java.util.Collections;
 import java.util.List;
 
-public record Melody(String name, List<Track> tracks) {
+public record Melody(String name, List<Track> tracks, int duration) {
+    public Melody(String name, List<Track> tracks) {
+        this(name, tracks, computeDuration(tracks));
+    }
+
     public static final RecordCodec<Melody> CODEC = RecordCodec.composite(
             "Name", Codec.STRING, Melody::name,
             "Tracks", new ListCodec<>(Track.CODEC), Melody::tracks,
             Melody::new
     );
+
+    private static int computeDuration(List<Track> tracks) {
+        int max = 0;
+        for (Track track : tracks) {
+            for (Note note : track.notes()) {
+                int end = note.time() + note.length();
+                if (end > max) max = end;
+            }
+        }
+        return max;
+    }
 
     public record Track(String name, List<Note> notes) {
         public static final RecordCodec<Track> CODEC = RecordCodec.composite(
@@ -37,7 +52,7 @@ public record Melody(String name, List<Track> tracks) {
                 "Note", Codec.INTEGER, Note::note,
                 "Velocity", Codec.INTEGER, Note::velocity,
                 "Time", Codec.INTEGER, Note::time,
-                "Length", Codec.INTEGER, Note::time,
+                "Length", Codec.INTEGER, Note::length,
                 Note::new
         );
 
