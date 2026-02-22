@@ -1,3 +1,8 @@
+# 1.0.6
+
+* Ported to patch 3
+* Added languages (Russian for now)
+
 # 1.0.5
 
 * Fixed issues with non-ascii characters in melody names
