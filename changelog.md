@@ -1,3 +1,7 @@
+# 1.1.0
+
+* Added syncing of melodies with neighboring players
+
 # 1.0.6
 
 * Ported to patch 3
