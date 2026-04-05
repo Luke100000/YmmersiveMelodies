@@ -1,3 +1,8 @@
+# 1.1.1
+
+* Fixed crash when trying to play a title.
+* Updated server version 2026.03.25-89796E57B
+
 # 1.1.0
 
 * Added syncing of melodies with neighboring players

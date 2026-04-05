@@ -8,11 +8,15 @@
       "Name": "Conczin",
       "Email": "conczin@gmail.com",
       "Url": "https://conczin.net/"
+    },
+    {
+      "Name": "GlobalHive",
+      "Email": "support@globalhive.ch"
     }
   ],
   "Website": "https://conczin.net/",
   "Main": "net.conczin.YmmersiveMelodies",
-  "ServerVersion": "2026.02.19-1a311a592",
+  "ServerVersion": "2026.03.25-89796E57B",
   "Dependencies": {},
   "OptionalDependencies": {},
   "DisabledByDefault": false,
