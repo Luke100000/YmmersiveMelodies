@@ -28,6 +28,7 @@ import net.conczin.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executors;
@@ -207,7 +208,7 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
         SpatialResource<Ref<EntityStore>, EntityStore> spatialresource = componentAccessor.getResource(
                 EntityModule.get().getPlayerSpatialResourceType()
         );
-        List<Ref<EntityStore>> list = SpatialResource.getThreadLocalReferenceList();
+        List<Ref<EntityStore>> list = new ArrayList<>();
         spatialresource.getSpatialStructure().collect(position, soundevent.getMaxDistance(), list);
         for (Ref<EntityStore> ref : list) {
             PlayerRef playerref = componentAccessor.getComponent(ref, PlayerRef.getComponentType());
