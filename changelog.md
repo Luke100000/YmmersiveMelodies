@@ -5,7 +5,7 @@
 
 # 1.1.0
 
-* Added syncing of melodies with neighboring players
+* Added syncing of melodies with neighboring players (Thanks Apfelsaftbaum!)
 
 # 1.0.6
 
