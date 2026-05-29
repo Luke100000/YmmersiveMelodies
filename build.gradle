@@ -19,22 +19,18 @@ java {
 
 repositories {
     mavenCentral()
+    // Hytale release repository
+    maven {
+        url "https://maven.hytale.com/release"
+    }
+    // Hytale pre-release repository
+    maven {
+        url "https://maven.hytale.com/pre-release"
+    }
 }
 
-def isLinux = System.getProperty("os.name").toLowerCase().contains("linux")
-
-def hytaleBasePath = env.isPresent("HYTALE_PATH")
-        ? env.fetch("HYTALE_PATH")
-        : System.getProperty("user.home") + (isLinux
-        ? "/.var/app/com.hypixel.HytaleLauncher/data/Hytale"
-        : "/AppData/Roaming/Hytale")
-
-
-def hytaleJar = "$hytaleBasePath/install/$patchline/package/game/latest/Server/HytaleServer.jar"
-def hytaleSourcesJar = "$hytaleBasePath/install/$patchline/package/game/latest/Server/HytaleServer-Sources.jar"
-
 dependencies {
-    implementation(files(hytaleJar))
+    compileOnly 'com.hypixel.hytale:Server:0.5.2'
 }
 
 def getAppVersion = {
@@ -156,70 +152,5 @@ tasks.register('publish') {
         } finally {
             response.close()
         }
-    }
-}
-
-
-/* -----------------------------------------
-        VINEFLOWER DECOMPILATION TASKS
-   ----------------------------------------- */
-
-def vineflowerVersion = "1.11.2"
-def vineflowerJarName = "vineflower-${vineflowerVersion}.jar"
-def vineflowerDownloadUrl =
-        "https://github.com/Vineflower/vineflower/releases/download/${vineflowerVersion}/${vineflowerJarName}"
-
-def vineflowerJar = layout.buildDirectory.file("vineflower/${vineflowerJarName}")
-
-tasks.register("downloadVineflower") {
-    group = "decompilation"
-    description = "Downloads Vineflower ${vineflowerVersion}"
-
-    outputs.file(vineflowerJar)
-
-    doLast {
-        def jarFile = vineflowerJar.get().asFile
-
-        if (!jarFile.exists()) {
-            println "Downloading Vineflower ${vineflowerVersion}…"
-            jarFile.parentFile.mkdirs()
-
-            new URI(vineflowerDownloadUrl).toURL().withInputStream { input ->
-                jarFile.withOutputStream { out -> out << input }
-            }
-
-            println "Saved to: $jarFile"
-        } else {
-            println "Vineflower already downloaded."
-        }
-    }
-}
-
-tasks.register("decompileWithVineflower", Exec) {
-    group = "decompilation"
-    description = "Runs Vineflower to decompile Hytale binary"
-
-    dependsOn("downloadVineflower")
-
-    doFirst {
-        commandLine(
-                "java",
-                "-jar", vineflowerJar.get().asFile.absolutePath,
-                "--decompile-inner",
-                "--remove-bridge",
-                "--decompile-generics",
-                "--ascii-strings",
-                "--remove-synthetic",
-                "--include-classpath",
-                "--variable-renaming=jad",
-                "--ignore-invalid-bytecode",
-                "--bytecode-source-mapping",
-                "--dump-code-lines",
-                "--indent-string=    ",
-                "--log-level=TRACE",
-                "--only=com/hypixel",
-                hytaleJar,
-                hytaleSourcesJar
-        )
     }
 }
