@@ -1,6 +1,6 @@
 package net.conczin.data;
 
-import com.hypixel.hytale.math.vector.Vector3d;
+import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.Iterator;
