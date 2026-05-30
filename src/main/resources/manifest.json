@@ -1,7 +1,7 @@
 {
   "Group": "Conczin",
   "Name": "Ymmersive Melodies",
-  "Version": "1.2.0",
+  "Version": "0.0.1",
   "Description": "Upload custom MIDIs and annoy your friends with immersive music!",
   "Authors": [
     {
@@ -16,7 +16,7 @@
   ],
   "Website": "https://conczin.net/",
   "Main": "net.conczin.YmmersiveMelodies",
-  "ServerVersion": "0.5.x",
+  "ServerVersion": ">=0.5.0",
   "Dependencies": {},
   "OptionalDependencies": {},
   "DisabledByDefault": false,
