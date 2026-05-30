@@ -1,3 +1,7 @@
+# 1.1.2
+
+* Updated the server version to 0.5.3
+
 # 1.1.1
 
 * Fixed crash when trying to play a title.
