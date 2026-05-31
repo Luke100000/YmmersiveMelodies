@@ -1,3 +1,7 @@
+# 1.1.3
+
+* SFX sound slider now controls instrument volume
+
 # 1.1.2
 
 * Updated the server version to 0.5.3
