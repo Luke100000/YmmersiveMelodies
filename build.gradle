@@ -1,3 +1,7 @@
+import java.nio.file.Files
+import java.nio.file.LinkOption
+import java.nio.file.Path
+
 buildscript {
     repositories {
         mavenCentral()
@@ -32,6 +36,7 @@ def hytaleBasePath = env.isPresent("HYTALE_PATH")
 
 def hytaleJar = "$hytaleBasePath/install/$patchline/package/game/latest/Server/HytaleServer.jar"
 def hytaleSourcesJar = "$hytaleBasePath/install/$patchline/package/game/latest/Server/HytaleServer-Sources.jar"
+def globalHytaleAuthDirectory = Path.of(System.getProperty('user.home'), '.gradle', 'hytale')
 
 dependencies {
     implementation(files(hytaleJar))
@@ -72,7 +77,35 @@ tasks.jar {
     archiveVersion.set(project.property("version") as String)
 }
 
+tasks.register('prepareHytaleAuth') {
+    group = 'hytale'
+    description = 'Links this project to the machine-wide Hytale authentication store.'
+
+    doLast {
+        Files.createDirectories(globalHytaleAuthDirectory)
+
+        ['auth.enc', 'auth.key'].each { name ->
+            def link = file("run/$name").toPath()
+            def target = globalHytaleAuthDirectory.resolve(name).toAbsolutePath().normalize()
+
+            Files.createDirectories(link.parent)
+            if (Files.isSymbolicLink(link)) {
+                def currentTarget = link.parent.resolve(Files.readSymbolicLink(link)).toAbsolutePath().normalize()
+                if (currentTarget != target) {
+                    throw new GradleException("$link points to $currentTarget instead of $target")
+                }
+            } else if (Files.exists(link, LinkOption.NOFOLLOW_LINKS)) {
+                throw new GradleException("$link is not a symbolic link; move or remove it explicitly")
+            } else {
+                Files.createSymbolicLink(link, target)
+            }
+        }
+    }
+}
+
 tasks.register('run', JavaExec) {
+    dependsOn('prepareHytaleAuth')
+
     mainClass = 'com.hypixel.hytale.Main'
     classpath = sourceSets.main.runtimeClasspath
     workingDir = file('run')   // create this dir if needed

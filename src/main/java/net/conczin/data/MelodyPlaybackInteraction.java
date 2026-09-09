@@ -8,6 +8,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.spatial.SpatialResource;
 import com.hypixel.hytale.protocol.InteractionType;
+import com.hypixel.hytale.protocol.InteractionItemChangeBehavior;
 import com.hypixel.hytale.protocol.Position;
 import com.hypixel.hytale.protocol.SoundCategory;
 import com.hypixel.hytale.protocol.packets.world.PlaySoundEvent3D;
@@ -112,7 +113,9 @@ public class MelodyPlaybackInteraction extends SimpleInteraction {
 
         // In singleplayer, cancel on item change (pause on scroll-away)
         // In multiplayer, keep ticking in background for other players
-        this.cancelOnItemChange = !multiplayerMode;
+        this.onItemChangeBehavior = multiplayerMode
+                ? InteractionItemChangeBehavior.Ignore
+                : InteractionItemChangeBehavior.Cancel;
 
         long prevPlaybackTime;
         long delta;
