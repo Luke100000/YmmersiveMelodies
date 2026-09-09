@@ -140,6 +140,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder
 import org.apache.http.impl.client.HttpClients
 
 tasks.register('publish') {
+    dependsOn(tasks.named('build'))
+
     doLast {
         if (!env.isPresent("API_TOKEN")) {
             throw new GradleException("Environment variable API_TOKEN is not set")
