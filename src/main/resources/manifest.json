@@ -16,7 +16,7 @@
   ],
   "Website": "https://conczin.net/",
   "Main": "net.conczin.YmmersiveMelodies",
-  "ServerVersion": ">=0.6.4",
+  "ServerVersion": ">=0.7.2",
   "Dependencies": {},
   "OptionalDependencies": {},
   "DisabledByDefault": false,

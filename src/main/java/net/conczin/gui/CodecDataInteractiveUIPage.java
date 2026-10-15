@@ -42,7 +42,7 @@ public abstract class CodecDataInteractiveUIPage<T> extends CustomUIPage {
                         assert player != null;
 
                         player.getPageManager()
-                                .updateCustomPage(
+                                .updateLegacyCustomPage(
                                         new CustomPage(
                                                 this.getClass().getName(),
                                                 false,
